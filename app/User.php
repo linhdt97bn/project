@@ -18,7 +18,7 @@ class User extends Authenticatable
     ];
 
     public function binhluan(){
-        return $this->hasMany('App\BinhLuan');
+        return $this->hasMany('App\BinhLuan','users_id','id');
     }
 
     public function danhgia(){
@@ -26,10 +26,10 @@ class User extends Authenticatable
     }
 
     public function tour(){
-        return $this -> hasMany('App\Tour');
+        return $this -> hasMany('App\Tour','users_id','id');
     }
 
     public function donhang(){
-        return $this -> hasMany('App\DonHang');
+        return $this -> hasMany('App\DonHang','users_id','id');
     }
 }

@@ -9,6 +9,6 @@ class DiaDiem extends Model
     protected $table = 'diadiem';
 
     public function tour(){
-    	return $this->hasMany('App\Tour');
+    	return $this->hasMany('App\Tour','diadiem_id','id');
     }
 }
