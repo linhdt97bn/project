@@ -16,6 +16,18 @@ $(document).ready(function() {
         $('#btnDatTour').attr('disabled','');
     }
 
+    if($('div').hasClass('loiSuaThongTin') || $('div').hasClass('successSuaThongTin')){
+        $('#SuaThongTin').modal();
+    }
+
+    $("#changePassword").change(function(){
+        if($(this).is(":checked")){
+            $(".password").removeAttr('disabled');
+        }else{
+            $(".password").attr('disabled','');
+        }
+    });
+
     $('#dg').click(function(){
         $('#comments').hide();
         $('#thongtinhdv').hide();

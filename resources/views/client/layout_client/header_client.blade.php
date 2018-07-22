@@ -27,13 +27,13 @@
                                 {{Auth::user()->hoten}}
                             </a>
                             <ul>
-                                
+                                <li><a data-toggle="modal" data-target="#SuaThongTin"><div>Sửa thông tin cá nhân</div></a></li>
                                 @if(Auth::user()->quyen == 1)
-                                    <li><a href="{{route('lich-su')}}"><div>Lich su dat tour</div></a></li>
+                                    <li><a href="{{route('lich-su')}}"><div>Lịch sử đặt tour</div></a></li>
                                 @elseif(Auth::user()->quyen == 2)
-                                    <li><a href="{{route('trang-chu-hdv')}}"><div>Quan ly tour</div></a></li>
+                                    <li><a href="{{route('trang-chu-hdv')}}"><div>Quản lý tour</div></a></li>
                                 @elseif(Auth::user()->quyen == 3)
-                                    <li><a href="{{route('trang-chu-admin')}}"><div>Trang quan ly</div></a></li>
+                                    <li><a href="{{route('trang-chu-admin')}}"><div>Trang quản lý</div></a></li>
                                 @endif
                             </ul>
                         </li>  
