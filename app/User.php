@@ -31,5 +31,6 @@ class User extends Authenticatable
 
     public function donhang(){
         return $this -> hasMany('App\DonHang');
+
     }
 }
