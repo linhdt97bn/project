@@ -7,6 +7,7 @@ use App\Http\Requests\DangKyKhachRequest;
 use App\Http\Requests\DangKyHDVRequest;
 use App\Http\Requests\DangNhapRequest;
 use App\Http\Requests\DatTourRequest;
+use App\Http\Requests\SuaNguoiDungRequest;
 use App\User;
 use Hash;
 use Auth;
@@ -153,6 +154,58 @@ class PageController extends Controller
         $count  = Tour::where([['giatour',$tk],['trangthaitour',1]])
                 ->orwhere([['giatour',$tk],['trangthaitour',1]])->count();
         return view('client.page_client.danhsachtour',compact('tourtimkiem','count'));
+    }
+
+    public function postSuaThongTin(SuaNguoiDungRequest $request){
+        $user = Auth::user();
+
+        if($request->checkpassword == "on"){
+            $user->password = bcrypt($request->password);
+        }
+        if($request->hasFile('anhdaidien')){
+            $file = $request->file('anhdaidien');
+            $duoi = $file->getClientOriginalExtension();
+            if($duoi != 'jpg' && $duoi != "png" && $duoi != "jpeg"){
+                return redirect()->back()->with('loiAnhDaiDien','Định dạng ảnh phải là jpg, png, jpeg');
+            }
+
+            $name = $file->getClientOriginalName();
+            $anhdaidien= str_random(4)."_".$name;
+            while(file_exists("upload".$anhdaidien)){
+                $anhdaidien= str_random(4)."_".$name;
+            }
+            
+            $file->move("upload",$anhdaidien);
+            $user->anhdaidien = $anhdaidien;
+        }
+
+        $flag = 0;
+        for ($i=0; $i < strlen($request->sodienthoai); $i++) { 
+            if(!((0 < $request->sodienthoai[$i]  && $request->sodienthoai[$i] <= 9 ) || $request->sodienthoai[$i] === '0')){
+                $flag = 1;
+                break;
+            }
+        }
+        
+        if ($flag) {
+           return redirect()->back()->with('loiSuaSoDienThoai','Kiểm tra lại số điện thoại.');
+        }
+        
+        if ($request->namsinh != "") {
+            $y = date('Y');
+            if($y - $request->namsinh  <= 100 && $y - $request->namsinh  >= 3) {
+                $user->namsinh = $request->namsinh;
+            }else{
+                return redirect()->back()->with('loiNamSinh','Vui lòng nhập đúng năm sinh');
+            }
+        }
+
+        $user->hoten = $request->hoten;
+        $user->gioitinh = $request->gioitinh;
+        $user->sodienthoai=$request->sodienthoai;
+        $user->diachi = $request->diachi;
+        $user->save();
+        return redirect()->back()->with('suathanhcong','Sửa thông tin thành công');
     }
 
 }
