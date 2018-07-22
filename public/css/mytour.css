@@ -62,3 +62,87 @@ body {
 #primary-menu .user{
     padding: 20px 15px;
 }
+
+.tour_container{
+	background-color:#fff;
+	-webkit-box-shadow:0 0 5px 0 rgba(0,0,0,.1);
+	-moz-box-shadow:0 0 5px 0 rgba(0,0,0,.1);
+	box-shadow:0 0 5px 0 rgba(0,0,0,.1);
+	margin:0 0 20px 10px;
+	height: 350px;
+}
+
+.tour_container .tour_title{
+    padding:15px;
+    position:relative
+}
+
+.tour_container .tour_title .rating{
+    font-size:14px;
+    margin-left:-3px
+}
+
+.tour_container .tour_title h3{
+    margin:0;
+    font-size:18px;
+    text-transform:uppercase
+}
+
+.img_container{
+    position:relative;
+    overflow:hidden;
+    border:1px solid #fff
+}
+
+.img_container a:hover img{
+    -webkit-transform:scale(1);
+    transform:scale(1)
+}
+
+.img_container img{
+    -webkit-transform:scale(1.2);
+    transform:scale(1.2);
+    -webkit-transition:all .5s ease;
+    transition:all .5s ease;
+    -webkit-backface-visibility:hidden
+}
+
+.price{
+	background-color: lavender;
+	position:absolute;
+    right:0px;
+    bottom:0px;
+    font-size:30px;
+    font-weight:700;
+    display:inline-block
+}
+
+.price sup{
+    font-size:20px;
+    position:relative;
+    top:-3px
+}
+
+.tour_container .tour_title{
+    padding:15px;
+    position:relative
+}
+
+.tour_container .tour_title .rating{
+    font-size:14px;
+    margin-left:-3px
+}
+
+.tour_container .tour_title h3{
+    margin:0;
+    font-size:18px;
+    text-transform:uppercase
+}
+
+.rating span{
+    color:#CCC
+}
+
+.rating .voted{
+    color:#F90
+}

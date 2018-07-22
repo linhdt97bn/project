@@ -26,6 +26,6 @@ class Tour extends Model
     }
 
     public function diadiem(){
-        return $this -> belongsTo('App\Diadiem');
+        return $this -> belongsTo('App\DiaDiem');
     }
 }

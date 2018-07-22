@@ -24,7 +24,7 @@ class CreateUsersTable extends Migration
             $table->integer('namsinh')->nullable();
             $table->string('sodienthoai',20);
             $table->tinyInteger('quyen');
-            $table->boolean('trangthaihdv')->nullable();
+            $table->boolean('trangthai')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
