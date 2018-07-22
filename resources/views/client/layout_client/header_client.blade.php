@@ -48,7 +48,19 @@
                         <li class="current"><a data-toggle="modal" data-target="#DangNhap"><div>Đăng nhập</div></a></li>
                     @endif
                 </ul>
+
+                <div id="top-search">
+                    <a id="top-search-trigger"><i class="icon-search3"></i><i class="icon-line-cross"></i></a>
+                    <form action="#" method="get">
+                        <input type="hidden" id="hiddenSearch" name="_token" value="{{csrf_token()}}">
+                        <input type="text" id="timkiem" name="timkiem" class="form-control" placeholder="Nhập thông tin tìm kiếm">
+                    </form>
+                </div>
             </nav>
         </div>
     </div>
 </header>
+<div id="divtimkiem">
+    <ul id="dsketqua">
+    </ul>
+</div>

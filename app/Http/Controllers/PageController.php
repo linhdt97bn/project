@@ -23,7 +23,8 @@ class PageController extends Controller
         return view('client.page_client.trangchu',compact('tour'));
     }
 
-    public function postDangKyKhach(DangKyKhachRequest $req){
+    public function postDangKyKhach(DangKyKhachRequest $req)
+    {
     	$flag = 0;
     	for ($i=0; $i < strlen($req->sodienthoai); $i++) { 
     		if(!((0 < $req->sodienthoai[$i]  && $req->sodienthoai[$i] <= 9 ) || $req->sodienthoai[$i] === '0')){
@@ -93,12 +94,14 @@ class PageController extends Controller
         return redirect()->route('trang-chu');
     }
 
-    public function getTourDiaDiem($iddd){
+    public function getTourDiaDiem($iddd)
+    {
         $tourdiadiem= Tour::where([['diadiem_id',$iddd],['trangthaitour',1]])->paginate(12);
         return view('client.page_client.danhsachtour',compact('tourdiadiem'));
     }
 
-    public function postDatTour(DatTourRequest $request){
+    public function postDatTour(DatTourRequest $request)
+    {
         $tour = Tour::find($request->idtour);
         if(!($request->sokhachdangky <= $tour->sokhachtoida && $request->sokhachdangky > 0)){
             return redirect()->back()->with('loiKhachMax','Số khách đăng ký phải nhỏ hơn số khách tối đa');
@@ -119,17 +122,20 @@ class PageController extends Controller
         return redirect()->back()->with('successDatTour','Gửi đơn đặt tour thành công.');
     }
 
-    public function getLichSu(){
+    public function getLichSu()
+    {
         $lichsu = DonHang::where('users_id',Auth::user()->id)->paginate(6);
         return view('client.page_client.lichsudattour', compact('lichsu'));
     }
 
-    public function getTourCuaHdv($idhdv){
+    public function getTourCuaHdv($idhdv)
+    {
         $tourhdv=Tour::where([['users_id',$idhdv],['trangthaitour',1]])->paginate(12);
         return view('client.page_client.danhsachtour', compact('tourhdv'));
     }
 
-    public function DanhGia($idtour, Request $request){
+    public function DanhGia($idtour, Request $request)
+    {
         if($request->sodiem == 0) return redirect()->back()->with('errorRate','Lỗi đánh giá!');
 
         $rate = new DanhGia();
@@ -138,6 +144,15 @@ class PageController extends Controller
         $rate->sodiem = $request->sodiem;
         $rate->save();
         return redirect()->back()->with('successRate','Cảm ơn bạn đã đánh giá tour');
+    }
+
+    public function getTimkiem(Request $request){
+        $tk = $request->timkiem;
+        $tourtimkiem = Tour::where([['tentour','like','%'.$tk.'%'],['trangthaitour',1]])
+                ->orwhere([['giatour',$tk],['trangthaitour',1]])->paginate(12);
+        $count  = Tour::where([['giatour',$tk],['trangthaitour',1]])
+                ->orwhere([['giatour',$tk],['trangthaitour',1]])->count();
+        return view('client.page_client.danhsachtour',compact('tourtimkiem','count'));
     }
 
 }

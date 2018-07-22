@@ -28,8 +28,11 @@ Route::get('tour-cua-hdv-{idhdv}',['as' => 'tour_hdv', 'uses' => 'PageController
 
 Route::post('danh-gia-{idtour}',['as'=>'danh-gia','uses' => 'PageController@DanhGia']);
 
+Route::get('tim-kiem',['as'=>'tim-kiem','uses' => 'PageController@getTimKiem']);
+
 //xu ly ajax
 Route::post('binhluan','AjaxController@postBinhLuan');
+Route::post('timkiem','AjaxController@postTimKiem');
 
 //--------------------HDV------------------
 Route::group(['prefix'=>'hdv','middleware'=>'CheckHDV'], function(){
