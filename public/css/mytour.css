@@ -430,3 +430,30 @@ body {
     padding: 5px;
 }
 
+#divtimkiem {
+    position: fixed; 
+    z-index: 10; 
+    width: 100%; 
+    background-color: white; 
+    font-size: 2em; 
+    display: none;
+}
+
+#divtimkiem ul {
+    padding: 20px 50px; 
+    list-style: none;
+    font-size: 17px;
+}
+
+#top-search{
+    margin-left: 0px;
+}
+
+#top-search-trigger .icon-search3{
+    font-size: 25px;
+}
+
+#top-search-trigger .icon-line-cross{
+    font-size: 25px;
+}
+

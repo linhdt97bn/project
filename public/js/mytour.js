@@ -198,6 +198,50 @@ $(document).ready(function() {
         }
         $('#sodiemdanhgia').val(danhgia[2]);
     });
+
+    $('#timkiem').keyup(function(){
+        var timkiem = $(this).val();
+        var _token = $('#hiddenSearch').val();
+        console.log(timkiem + ' ' + _token)
+        if(timkiem.length >3){
+            $('#divtimkiem').show();
+            $('#dsketqua li').remove();
+            $.ajax({
+                url: "timkiem",
+                method: "post",
+                data: {search:timkiem, _token:_token},
+                dataType: "text",
+                success: function(data){
+                    var data = JSON.parse(data);
+                    console.log(data);
+                    if (data.soluong > 0) {
+                        if (data.soluong <= 7) {
+                            for (var i = 0; i < data.soluong; i++) {
+                                stringds = '<li style="padding: 5px"><img src="upload/'+ data.ketqua[i]['hinhanh'] +'" height="50" width="50" style="float:left;"> <a href = "chi-tiet/'+ data.ketqua[i]['id'] +'">' + data.ketqua[i]['tentour'] +'</a><br><span>'+ data.ketqua[i]['giatour']+' vnd</span></li>';
+                                $('#dsketqua').append(stringds);
+                            }
+                        }else{
+                            for (var i = 0; i < 7; i++) {
+                                stringds = '<li style="padding: 5px"><img src="upload/'+ data.ketqua[i]['hinhanh'] +'" height="50" width="50" style="float:left;"> <a href = "chi-tiet/'+ data.ketqua[i]['id'] +'">' + data.ketqua[i]['tentour'] +'</a><br><span>'+ data.ketqua[i]['giatour']+' vnd</span></li>';
+                                $('#dsketqua').append(stringds);
+                            }
+                            $('#dsketqua').append('<li align="center"><b><a href="tim-kiem?timkiem='+timkiem+'"><< Xem tat ca >></a></b></li>');
+                        }                
+                    }else{
+                        $('#dsketqua').append('<li>Khong tim thay ket qua yeu cau</li>');
+                    }                    
+                }
+            });
+        }else{
+            $('#divtimkiem').hide();
+        }
+    });
+
+    $('#timkiem').blur(function(){
+        setTimeout(function(){
+            $('#divtimkiem').hide()
+        },200);
+    });
 }); 
 
 function clickReply(id){
