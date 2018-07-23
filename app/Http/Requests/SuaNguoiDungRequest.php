@@ -21,11 +21,17 @@ class SuaNguoiDungRequest extends FormRequest
                 'sodienthoai' => 'required|max:11|min:10',
                 'password'=>'required|min:6|max:30',
                 'passwordAgain' =>'same:password',
+                'diachi'=>'required',
+                'namsinh'=>'required|integer|min:1900|max:2018',
+                'gioitinh'=>'required',
             ];   
         }else{
             return[
                 'hoten' => 'required|max:100|min:4',
                 'sodienthoai' => 'required|max:11|min:10',
+                'diachi'=>'required',
+                'namsinh'=>'required|integer|min:1900|max:2018',
+                'gioitinh'=>'required',
             ];
         }    
     }
@@ -42,7 +48,12 @@ class SuaNguoiDungRequest extends FormRequest
             'password.required' => 'Mật khẩu mới không được để trống',
             'password.min' => 'Mật khẩu mới tối thiểu 6 kí tự',
             'password.max' => 'Mật khẩu mới tối đa 30 kí tự',
-            'passwordAgain.same' => 'Xác nhận mật khẩu không chính xác',  
+            'passwordAgain.same' => 'Xác nhận mật khẩu không chính xác', 
+            'diachi.required'=>'Nhập địa chỉ',
+            'namsinh.required'=>'Nhập năm sinh',
+            'namsinh.integer'=>'Nhập vào 1 số',
+            'namsinh.min'=>'Năm sinh phải >=1900',
+            'namsinh.max'=>'Năm sinh phải <= 2018', 
         ];
     }
 }
