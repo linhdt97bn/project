@@ -1,4 +1,4 @@
-.modal-dangky, .modal-dangnhap, .modal-dattour, .modal-suathongtin {
+.modal-dangky, .modal-dangnhap, .modal-dattour {
 	float: right; 
 	padding: 3px 20px; 
 	font-weight: bold;
@@ -20,16 +20,16 @@
 	font-size: 15px;
 }
 
-.form-dangky fieldset, .form-dattour fieldset, .form-dangnhap fieldset,  .form-suathongtin fieldset {
+.form-dangky fieldset, .form-dattour fieldset {
 	color: blue; 
 }
 
-.form-dangky span, .form-dangnhap span, .form-dattour span, .form-suathongtin span {
+.form-dangky span, .form-dangnhap span, .form-dattour span {
 	color: red; 
 	margin-left: 20px;
 }
 
-#btnKhach, #btnHDV, #btnDatTour, #btnSuaThongTin {
+#btnKhach,#btnHDV,#btnDatTour {
 	width: 20%;
 }
 
@@ -428,32 +428,5 @@ body {
     font-size: 2em;
     display: block;
     padding: 5px;
-}
-
-#divtimkiem {
-    position: fixed; 
-    z-index: 10; 
-    width: 100%; 
-    background-color: white; 
-    font-size: 2em; 
-    display: none;
-}
-
-#divtimkiem ul {
-    padding: 20px 50px; 
-    list-style: none;
-    font-size: 17px;
-}
-
-#top-search{
-    margin-left: 0px;
-}
-
-#top-search-trigger .icon-search3{
-    font-size: 25px;
-}
-
-#top-search-trigger .icon-line-cross{
-    font-size: 25px;
 }
 

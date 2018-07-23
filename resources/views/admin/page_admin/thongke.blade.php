@@ -46,7 +46,6 @@
                     @endforeach
                 </tbody>
             </table>
-            <div class="row" align="center">{{$bill->links()}}</div>
             @elseif(isset($doanhthu))
             <div class="col-lg-12">
                 <h1 class="page-header">Danh sách
@@ -76,7 +75,6 @@
                     @endforeach
                 </tbody>
             </table>
-            <div class="row" align="center">{{$doanhthu->links()}}</div>
             <div style="font-size: 20px">Tổng doanh thu: <b style="color: red"><?php echo number_format($sum).' VND' ?></b></div>
             @endif
         </div>

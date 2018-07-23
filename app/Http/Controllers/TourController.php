@@ -17,7 +17,7 @@ class TourController extends Controller
 
     public function index()
     {
-        $tour = Tour::where('users_id', Auth::user()->id)->paginate(10);
+        $tour = Tour::where('users_id', Auth::user()->id)->get();
         return view('hdv.page_hdv.danhsachtour', compact('tour'));
     }
 
@@ -74,19 +74,15 @@ class TourController extends Controller
         return view('client.page_client.chitiettour', compact('cttour', 'tourlq', 'tourmoi'));
     }
 
-    public function edit($str)
+    public function edit($id)
     {
-        $id = $str[0];
         $idt = Tour::find($id);
         $dd = DiaDiem::all();
-        return view('hdv.page_hdv.themtour', compact('idt','dd','str'));
+        return view('hdv.page_hdv.themtour', compact('idt','dd'));
     }
 
-    public function update(TaoTourRequest $request, $str)
+    public function update(TaoTourRequest $request, $id)
     {
-        $arr = explode(' ',$str);
-        $id = $arr[0];
-        $page = $arr[1];
         $tour = Tour::find($id);
         $tour->tentour = $request->tentour;
         $tour->giatour = $request->giatour;
@@ -108,7 +104,7 @@ class TourController extends Controller
             $file->move("upload",$hinhanh);
             $tour->hinhanh = $hinhanh;
             $tour->save();
-            return redirect('hdv/tour?page='.$page)->with('thongbao','Sửa tour thành công');
+            return redirect('hdv/tour')->with('thongbao','Sửa tour thành công');
         }
         else
         {

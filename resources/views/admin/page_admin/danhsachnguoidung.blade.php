@@ -15,15 +15,6 @@
                     {{session('thongbao')}}
                 </div>
             @endif
-            <form action="admin/tim-kiem/khach" method="get" class="input-group custom-search-form" style="width: 30%">
-                <input type="text" class="form-control" placeholder="Search..." name="tukhoa">
-                <span class="input-group-btn">
-                    <button class="btn btn-default" type="submit">
-                        <i class="fa fa-search"></i>
-                    </button>
-                </span>
-            </form>
-            <br><br>
             <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                 <thead>
                     <tr>
@@ -50,7 +41,7 @@
                             @endif
                             <td>{{$dsk->sodienthoai}}</td>
                             <td>{{$dsk->diachi}}</td> 
-                            <td><a href="admin/edit-user/{{$dsk->id}}/{{$dskhach->currentPage()}}"><button class="btn btn-primary"><i class="glyphicon glyphicon-pencil"></i></button></a></td>
+                            <td><a href="admin/edit-user/{{$dsk->id}}"><button class="btn btn-primary"><i class="glyphicon glyphicon-pencil"></i></button></a></td>
                             <td>                  
                             @if($dsk->donhang->count() == 0 && $dsk->binhluan->count() == 0)
                                 <form action="{{route('xoa-user',$dsk->id)}}" method="post">
@@ -64,7 +55,6 @@
                     @endforeach
                 </tbody>
             </table>
-            <div class="row" align="center">{{$dskhach->links()}}</div>
             @elseif(isset($dshdv))
             <div class="col-lg-12">
                 <h1 class="page-header">Danh sách
@@ -77,16 +67,6 @@
                     {{session('thongbao')}}
                 </div>
                 @endif
-            <form action="admin/tim-kiem/hdv" method="get" class="input-group custom-search-form" style="width: 30%">
-                <input type="hidden" name="_token" value="{{csrf_token()}}">
-                <input type="text" class="form-control" placeholder="Search..." name="tukhoa">
-                <span class="input-group-btn">
-                    <button class="btn btn-default" type="submit">
-                        <i class="fa fa-search"></i>
-                    </button>
-                </span>
-            </form>
-            <br><br>
             <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                 <thead>
                     <tr>
@@ -117,7 +97,7 @@
                             @else
                             <td >Đã có quyền</td>
                             @endif
-                            <td><a href="admin/edit-user/{{$dsh->id}}/{{$dshdv->currentPage()}}"><button class="btn btn-primary"><i class="glyphicon glyphicon-pencil"></i></button></a></td>
+                            <td><a href="admin/edit-user/{{$dsh->id}}"><button class="btn btn-primary"><i class="glyphicon glyphicon-pencil"></i></button></a></td>
                             <td>
                             @if($dsh->tour->count() == 0 && $dsh->binhluan->count() == 0)
                                 <form action="{{route('xoa-user',$dsh->id)}}" method="post">
@@ -131,7 +111,6 @@
                     @endforeach
                 </tbody>
             </table>
-            <div class="row" align="center">{{$dshdv->links()}}</div>
             @endif
         </div>    
     </div>

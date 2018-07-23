@@ -18,20 +18,20 @@ class AdminController extends Controller
 
     public function getListUser($idquyen){
         if($idquyen == 1){
-            $dskhach = User::where('quyen',1)->paginate(12);
+            $dskhach = User::where('quyen',1)->get();
             return view('admin.page_admin.danhsachnguoidung', compact('dskhach'));
         }elseif($idquyen == 2){
-            $dshdv = User::where('quyen',2)->paginate(12);
+            $dshdv = User::where('quyen',2)->get();
             return view('admin.page_admin.danhsachnguoidung', compact('dshdv'));
         }
     }
 
-    public function getUserEdit($id,$page){
+    public function getUserEdit($id){
         $dsk = User::find($id);
-        return view('admin.page_admin.suathongtinuser',compact('dsk','page'));
+        return view('admin.page_admin.suathongtinuser',compact('dsk'));
     }
 
-    public function postUserEdit(SuaNguoiDungRequest $request,$id,$page){
+    public function postUserEdit(SuaNguoiDungRequest $request,$id){
         $user = User::find($id);
         if($request->checkpassword == "on"){
         $user->password = bcrypt($request->password);
@@ -59,9 +59,9 @@ class AdminController extends Controller
         $user->diachi = $request->diachi;
         $user->save();
         if($user->quyen == 1)
-        return redirect('admin/list-user/1?page='.$page)->with('thongbao','Sửa thông tin thành công');
+        return redirect('admin/list-user/1')->with('thongbao','Sửa thông tin thành công');
         else
-            return redirect('admin/list-user/2?page='.$page)->with('thongbao','Sửa thông tin thành công');
+            return redirect('admin/list-user/2')->with('thongbao','Sửa thông tin thành công');
     }
 
     public function deleteUser($iduser){
@@ -78,16 +78,15 @@ class AdminController extends Controller
     }
 
     public function DSBinhluan(){
-        $comment = BinhLuan::where('parent_id',0)->paginate(10);
-        $traloi = BinhLuan::where('parent_id','<>',0)->get();
-        return view('admin.page_admin.dsbinhluan', compact('comment','traloi'));
+        $tour = Tour::all();
+        return view('admin.page_admin.dsbinhluan', compact('tour'));
     }
 
-    public function Anbinhluan($idbl,$page){
+    public function Anbinhluan($idbl){
         $comment = BinhLuan::find($idbl);
         $comment->trangthaibinhluan = 0;
         $comment->save();
-        return redirect('admin/dsbinhluan?page='.$page)->with('thongbao','Bình luận đã đưọc ẩn');
+        return redirect('admin/dsbinhluan')->with('thongbao','Bình luận đã đưọc ẩn');
     }
 
     public function ThongkeDonhang(){
@@ -96,37 +95,8 @@ class AdminController extends Controller
     }
 
     public function ThongkeDoanhthu(){
-        $doanhthu = DonHang::where('tinhtrangdon',3)->paginate(12);
+        $doanhthu = DonHang::where('tinhtrangdon',3)->get();
         return view('admin.page_admin.thongke', compact('doanhthu'));
     }
 
-    public function getTimkiem(Request $re,$tk){
-        $this->validate($re,
-            [
-                'tukhoa'=>'required',
-            ],
-            [
-                'tukhoa.required'=>'Nhập thông tin tìm kiếm',
-            ]);
-        $tukhoa = $re->tukhoa;
-        if($tk == 'khach'){
-            $dskhach = User::where('email','like','%'.$tukhoa.'%')->where('quyen','=',1)->paginate(100);
-            return view('admin.page_admin.timkiemuser', compact('dskhach'));
-        }elseif($tk=='hdv'){
-            $dshdv = User::where('email','like','%'.$tukhoa.'%')->where('quyen','=',2)->paginate(100);
-            return view('admin.page_admin.timkiemuser', compact('dshdv'));
-        }elseif($tk == 'binhluan'){
-            $array = [];
-            $arr = Tour::where('tentour','like','%'.$tukhoa.'%')->select('id')->get();
-            foreach ($arr as $key => $value) {
-                array_push($array, $value->id);
-            }
-            $comment = BinhLuan::where('parent_id',0)->whereIn('tour_id',$array)->paginate(100);
-            $traloi = BinhLuan::where('parent_id','<>',0)->get();
-            return view('admin.page_admin.tkbinhluan', compact('comment','traloi'));            
-        }else{
-            $dsdd = Diadiem::where('tendiadiem','like','%'.$tukhoa.'%')->paginate(100);
-            return view('admin.page_admin.tkdiadiem',compact('dsdd'));
-        }
-    }
 }

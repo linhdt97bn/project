@@ -16,22 +16,22 @@ class HdvController extends Controller
     }
 
     public function getDSdontour(){
-        $bill = Tour::where('users_id', Auth::user()->id)->paginate(10);
+        $bill = Tour::where('users_id', Auth::user()->id)->get();
         return view('hdv.page_hdv.danhsachdondattour', compact('bill'));
     }
 
     public function getDSdontourmoi(){
-        $newbill = Tour::where('users_id', Auth::user()->id)->paginate(10);
+        $newbill = Tour::where('users_id', Auth::user()->id)->get();
         return view('hdv.page_hdv.danhsachdondattour', compact('newbill'));
     }
 
     public function getDSdontourchapnhan(){
-        $billcn = Tour::where('users_id',Auth::user()->id)->paginate(10);
+        $billcn = Tour::where('users_id',Auth::user()->id)->get();
         return view('hdv.page_hdv.danhsachdondattour',compact('billcn'));
     }
 
     public function getDSdontourthanhtoan(){
-        $billtt = Tour::where('users_id', Auth::user()->id)->paginate(10);
+        $billtt = Tour::where('users_id', Auth::user()->id)->get();
         return view('hdv.page_hdv.danhsachdondattour', compact('billtt'));
     }
 
@@ -60,11 +60,11 @@ class HdvController extends Controller
         return redirect()->back()->with('thongbao','Xóa thành công');
     }
 
-    public function getEditBill($id,$page){
+    public function getEditBill($id){
         $bill = DonHang::find($id);
-        return view('hdv.page_hdv.suabill')->with(compact('bill','page'));
+        return view('hdv.page_hdv.suabill')->with(compact('bill'));
     }
-    public function postEditBill(Request $request,$id,$page){
+    public function postEditBill(Request $request,$id){
         $bill = DonHang::find($id);
         $max = $bill->tour->sokhachtoida;
         $time = date('Y-m-d');
@@ -87,8 +87,8 @@ class HdvController extends Controller
         $bill->tongtien = $request->sokhachdangky * $bill->tour->giatour;
         $bill->save();
         if($bill->tinhtrangdon ==1)
-            return redirect('hdv/dsdontourchapnhan?page='.$page)->with('thongbao','Sửa thành công');
+            return redirect('hdv/dsdontourchapnhan')->with('thongbao','Sửa thành công');
         else
-            return redirect('hdv/dsdontourthanhtoan?page='.$page)->with('thongbao','Sửa thành công');
+            return redirect('hdv/dsdontourthanhtoan')->with('thongbao','Sửa thành công');
     }
 }

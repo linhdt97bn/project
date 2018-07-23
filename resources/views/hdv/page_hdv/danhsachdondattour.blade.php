@@ -50,7 +50,6 @@
                 </tbody>
             </table>
         </div>
-        <div class="row" align="center">{{$bill->links()}}</div>
         @elseif(isset($newbill))
         <div class="row">
             <div class="col-lg-12">
@@ -105,7 +104,6 @@
                     @endforeach
                 </tbody>
             </table>
-            <div class="row" align="center">{{$newbill->links()}}</div>
         </div>
         @elseif(isset($billtt))
         <div class="row">
@@ -149,7 +147,7 @@
                                            <button type="submit" class="btn btn-primary">Xác nhận</button>    
                                     </form>
                                 </td> 
-                                <td><a href="hdv/edit-bill/{{$dsb->id}}/{{$billtt->currentPage()}}"><button class="btn btn-primary"><i class="glyphicon glyphicon-pencil"></i></button></a></td>
+                                <td><a href="hdv/edit-bill/{{$dsb->id}}"><button class="btn btn-primary"><i class="glyphicon glyphicon-pencil"></i></button></a></td>
                                 <td>
                                     <form action="{{route('xoatour',$dsb->id)}}" method="post" onclick="return xacnhanxoa()">
                                            <input type="hidden" name="_token" value="{{csrf_token()}}">
@@ -162,7 +160,6 @@
                     @endforeach
                 </tbody>
             </table>
-            <div class="row" align="center">{{$billtt->links()}}</div>
         </div>
         @else
         <div class="row">
@@ -206,7 +203,7 @@
                                            <button type="submit" class="btn btn-primary">Xác nhận</button>    
                                     </form>
                                 </td> 
-                                <td><a href="hdv/edit-bill/{{$dsb->id}}/{{$billcn->currentPage()}}"><button class="btn btn-primary"><i class="glyphicon glyphicon-pencil"></i></button></a></td>
+                                <td><a href="hdv/edit-bill/{{$dsb->id}}"><button class="btn btn-primary"><i class="glyphicon glyphicon-pencil"></i></button></a></td>
                                 <td>
                                     <form action="{{route('xoatour',$dsb->id)}}" method="post" onclick="return xacnhanxoa()">
                                            <input type="hidden" name="_token" value="{{csrf_token()}}">
@@ -219,7 +216,6 @@
                     @endforeach
                 </tbody>
             </table>
-            <div class="row" align="center">{{$billcn->links()}}</div>
         </div>       
         @endif
     </div>

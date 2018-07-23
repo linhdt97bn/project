@@ -17,7 +17,7 @@ class CheckHDVMiddleware
     {
         if(Auth::check() && Auth::user()->quyen == 2)
         {
-            if(Auth::user()->trangthaihdv == 1)
+            if(Auth::user()->trangthai == 1)
                 return redirect()->route('trang-chu')->with('thongbao','Bạn chưa được cấp quyền');
             return $next($request);
         }else{

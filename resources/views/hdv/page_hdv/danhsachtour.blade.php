@@ -15,7 +15,7 @@
                 {{session('thongbao')}}
             </div>
             @endif
-            <table class="table table-striped table-bordered table-hover">
+            <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                 <thead>
                     <tr align="center">
                         <th>Tên tour</th>
@@ -30,11 +30,6 @@
                 </thead>
                 <tbody>
                     @foreach($tour as $dst)  
-                        <?php 
-                            $arr[0] = $dst->id;
-                            $arr[1] = $tour->currentPage();
-                            $str = implode(' ', $arr);
-                        ?>
                         <tr class="odd gradeX">
                             <td><a href="{{route('chi-tiet',$dst->id)}}">{{$dst->tentour}}</a></td>
                             <td>{{$dst->diadiem->tendiadiem}}</td>
@@ -46,7 +41,7 @@
                             @else
                                 <td></td>
                             @endif
-                            <td><a href="{{route('tour.edit',$str)}} ">
+                            <td><a href="{{route('tour.edit',$dst->id)}} ">
                                 <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-pencil"></i></button>
                             </a></td>
                             <td>
@@ -66,9 +61,6 @@
                     @endforeach
                 </tbody>
             </table>
-            <div class="row" style="text-align: center">
-                {{$tour->links()}}
-            </div>
         </div>
     </div>
 </div>

@@ -10,7 +10,7 @@ class DiaDiemController extends Controller
 
     public function index()
     {
-        $dsdd = Diadiem::paginate(12);
+        $dsdd = Diadiem::all();
         return view('admin.page_admin.danhsachdiadiem', compact('dsdd'));
     }
 
@@ -36,18 +36,14 @@ class DiaDiemController extends Controller
     }
 
 
-    public function edit($str)
+    public function edit($id)
     {
-        $id = $str[0];
         $dd = Diadiem::find($id);
-        return view('admin.page_admin.themdiadiem',compact('dd','str'));
+        return view('admin.page_admin.themdiadiem',compact('dd'));
     }
 
-    public function update(Request $request, $str)
+    public function update(Request $request, $id)
     {
-        $arr = explode(' ',$str);
-        $id = $arr[0];
-        $page = $arr[1];
         $diadiem = Diadiem::find($id);
         $this-> validate($request,
             [
@@ -59,15 +55,12 @@ class DiaDiemController extends Controller
             ]);
         $diadiem->tendiadiem = $request->tendiadiem;
         $diadiem->save();
-        return redirect('admin/diadiem?page='.$page)->with('thongbao','Sửa địa điểm thành công');
+        return redirect('admin/diadiem')->with('thongbao','Sửa địa điểm thành công');
     }
 
-    public function destroy($str)
+    public function destroy($id)
     {
-        $arr = explode(' ',$str);
-        $id = $arr[0];
-        $page = $arr[1];
         Diadiem::find($id)->delete();
-        return redirect('admin/diadiem?page='.$page)->with('thongbao','Xóa thành công');    
+        return redirect('admin/diadiem')->with('thongbao','Xóa thành công');    
     }
 }

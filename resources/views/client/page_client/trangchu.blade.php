@@ -39,4 +39,9 @@
 		</div>
 	</div>
 </section>
+@if(session('thongbao'))
+<script>
+	alert("Bạn chưa đưọc cấp quyền hướng dẫn viên!");
+</script>
+@endif
 @endsection

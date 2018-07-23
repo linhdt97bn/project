@@ -12,65 +12,69 @@
                 <div class="alert alert-success thongbao">
                     {{session('thongbao')}}
                 </div>
-            @endif  
-            <form action="admin/tim-kiem/binhluan" method="get" class="input-group custom-search-form" style="width: 30%">
-                <input type="text" class="form-control" placeholder="Search..." name="tukhoa">
-                <span class="input-group-btn">
-                    <button class="btn btn-default" type="submit">
-                        <i class="fa fa-search"></i>
-                    </button>
-                </span>
-            </form>
-            <br><br> 
+            @endif   
             <table class="table table-striped table-bordered table-hover">
                 <thead>
                     <tr align="center">
                         <th>Tên tour</th>
                         <th>Email bình luận</th>
-                        <th>Nội dung bình luận</th>
+                        <th>Bình luận</th>
+                        <th>Trả lời</th>
                         <th>Trạng thái</th>
                     </tr>
                 </thead>
                 <tbody> 
-                    @foreach($comment as $bl)
+                    @foreach($tour as $to)
+                        @if($to->binhluan->count()>0)
                             <tr class="odd gradeX">
-                                <td><a href="{{route('chi-tiet',$bl->tour_id)}}">{{$bl->tour->tentour}}</a></td>
-                                <td>{{$bl->users->email}}</td>
-                                <td>{{$bl->noidung}}</td>
-                                <td>
-                                    @if($bl->trangthaibinhluan == 0)
-                                        <div style="color: red"> Ẩn </div>
-                                    @else
-                                        <form action="admin/anbinhluan/{{$bl->id}}/{{$comment->currentPage()}}" method="post" onclick="return an()">
-                                               <input type="hidden" name="_token" value="{{csrf_token()}}">
-                                               <button type="submit" class="btn btn-primary">Hiện </button>    
-                                        </form>
-                                    @endif
-                                </td>
-                            </tr>
-                            @foreach($traloi as $tl)
-                                @if($tl->parent_id == $bl->id && $bl->trangthaibinhluan == 1)
-                                    <tr class="odd gradeX">
+                                <?php $flag = true; ?>
+                                @foreach($to->binhluan as $bl)
+                                   @if($bl->parent_id ==0 )
+                                        @if($flag == true ) 
+                                            <td><a href="{{route('chi-tiet',$to->id)}}">{{$to->tentour}}</a></td>
+                                            <?php $flag = false; ?>
+                                        @else
+                                            <td></td>
+                                        @endif
+                                        <td>{{$bl->users->email}}</td>
+                                        <td>{{$bl->noidung}}</td>
                                         <td></td>
-                                        <td>{{$tl->users->email}}</td>
-                                        <td>{{$tl->noidung}}</td>
                                         <td>
-                                            @if($tl->trangthaibinhluan == 0)
+                                            @if($bl->trangthaibinhluan == 0)
                                                 <div style="color: red"> Ẩn </div>
                                             @else
-                                                <form action="admin/anbinhluan/{{$tl->id}}/{{$comment->currentPage()}}" method="post" onclick="return an()">
+                                                <form action="admin/anbinhluan/{{$bl->id}}" method="post" onclick="return an()">
                                                        <input type="hidden" name="_token" value="{{csrf_token()}}">
                                                        <button type="submit" class="btn btn-primary">Hiện </button>    
                                                 </form>
                                             @endif
-                                        </td>
-                                    </tr>
-                                @endif
-                            @endforeach        
+                                        </td></tr>
+                                        @foreach($to->binhluan as $tl)
+                                            @if($tl->parent_id == $bl->id && $bl->trangthaibinhluan == 1)
+                                                <tr class="odd gradeX">
+                                                    <td></td>
+                                                    <td>{{$tl->users->email}}</td>
+                                                    <td></td>
+                                                    <td>{{$tl->noidung}}</td>
+                                                    <td>
+                                                        @if($tl->trangthaibinhluan == 0)
+                                                            <div style="color: red"> Ẩn </div>
+                                                        @else
+                                                            <form action="admin/anbinhluan/{{$tl->id}}" method="post" onclick="return an()">
+                                                                   <input type="hidden" name="_token" value="{{csrf_token()}}">
+                                                                   <button type="submit" class="btn btn-primary">Hiện </button>    
+                                                            </form>
+                                                        @endif
+                                                    </td>
+                                                </tr>
+                                            @endif
+                                        @endforeach
+                                    @endif
+                                @endforeach
+                        @endif
                     @endforeach
                 </tbody>
             </table>
-            <div class="row" align="center">{{$comment->links()}}</div>
         </div>
     </div>
 </div>

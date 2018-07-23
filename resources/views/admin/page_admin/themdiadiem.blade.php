@@ -32,7 +32,7 @@
                     <h2> Sửa địa điểm</h2>
                 </div>          
                 <div class="panel-body">
-                    <form action="{{route('diadiem.update',$str)}}" method="post">
+                    <form action="{{route('diadiem.update',$dd->id)}}" method="post">
                         @method('put')
                         <input type="hidden" name="_token" value="{{csrf_token()}}"> 
 

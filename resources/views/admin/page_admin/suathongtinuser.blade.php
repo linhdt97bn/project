@@ -18,7 +18,7 @@
                     <h2>Sửa thông tin</h2>
                 </div>
                 <div class="panel-body">
-                <form action="admin/edit-user/{{$dsk->id}}/{{$page}}" method="post" enctype="multipart/form-data">
+                <form action="admin/edit-user/{{$dsk->id}}" method="post" enctype="multipart/form-data">
                     <input type="hidden" name="_token" value="{{csrf_token()}}">
 
                     <label>Họ tên</label>

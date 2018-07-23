@@ -18,7 +18,7 @@
                 <h2>Sửa đơn tour</h2>
             </div>
             <div class="panel-body">
-                <form action="hdv/edit-bill/{{$bill->id}}/{{$page}}" method="post">
+                <form action="hdv/edit-bill/{{$bill->id}}" method="post">
                     <input type="hidden" name="_token" value="{{csrf_token()}}"> 
 
                     <label>Tên tour</label>
